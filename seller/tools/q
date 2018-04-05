@@ -1,0 +1,13 @@
+SELECT
+    `sold_files`.`sid`
+    , `sold_files`.`fileid`
+    , `sold_files`.`solddate`
+    , COUNT(`leads_file`.`leadfileid`)
+    , `registration`.`uid`
+FROM
+    `lms`.`leads_file`
+    INNER JOIN `lms`.`sold_files` 
+        ON (`leads_file`.`leadfileid` = `sold_files`.`fileid`)
+    INNER JOIN `lms`.`registration` 
+        ON (`registration`.`uid` = `leads_file`.`uid`)
+GROUP BY `leads_file`.`leadfileid`;

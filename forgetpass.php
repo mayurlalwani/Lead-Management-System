@@ -1,0 +1,134 @@
+<?php
+session_start();
+require 'class/connection.php';
+
+connect();
+
+$emails=(isset($_POST['email'])?$_POST['email']:'');
+
+if (isset ($_POST['submit'])) 
+	{
+		$q = mysqli_query($GLOBALS["___mysqli_ston"], "select * from registration where email = '{$emails}'") or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+
+$data = mysqli_fetch_row($q);
+		if($data>0)
+		{
+			$emails="";
+		echo '<script type="text/javascript">'; 
+		echo 'alert("Email Sent Successfully");'; 
+		echo 'window.location.href = "index.php";';
+		echo '</script>';
+		}
+		if($data==0)
+		{
+			$emails="";
+		echo '<script type="text/javascript">'; 
+		echo 'alert("Sorry No Such Email Address ");'; 
+		//echo 'window.location.href = "forgetpass.php";';
+		echo '</script>';
+		}
+	}
+
+		
+	
+
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+
+
+        <!-- Framework CSS -->
+        <link rel="stylesheet" href="css/screen.css" type="text/css" media="screen, projection" />
+        <link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
+
+        <!-- Site Specific CSS -->
+        <link rel="stylesheet" href="css/theme.css" type="text/css" media="screen, projection" />
+
+        <!--[if IE]><link rel="stylesheet" href="css/frame/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+        <script language="javascript" type="text/javascript" src="js/jquery-latest.js"></script>
+
+        <script type="text/javascript" src="js/sets/default/set.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/style1.css" />
+        <link rel="stylesheet" type="text/css" href="css/facebox.css" />
+        <script type="text/javascript" src="admin/tools/jquery.validate.js"></script>
+        <script type="text/javascript" src="admin/tools/additional-methods.js"></script>
+
+
+											
+
+        <style type="text/css">
+
+            label.error { float: none; color: red; padding-left: .5em; vertical-align: top; }
+
+        </style>
+        <script>
+            $(document).ready(function(){
+
+                $("#myform").validate({
+        
+                });
+            });
+        </script>
+
+
+        <!--[if lt IE 9]>
+        <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta3)/IE9.js"></script>
+        <![endif]-->
+
+    </head>
+
+    <body class="login">
+
+        <div class="container_12">
+
+            <div class="grid_6 prefix_3 suffix_3">
+
+                <div class="main login" style="width:auto; padding:20px;">
+
+                    <div class="content-box">
+
+                        <div class="content-header">
+
+                            <h3><center> Forget Password </center></h3>
+
+                        </div>
+
+
+
+                        <p><font color="red">Please Enter Your E-mail Address</font></p>
+
+                        <form method="post" id="myform">
+
+
+                       
+                            <div class="lileft">
+                                <label>Email</label>
+                                <input type="text" class="required email" name="email" style="border-color: #000000" value=<?php echo $emails; ?>>
+                            </div>
+							<br><br><br>
+
+                                <input id="submit" type="submit" value="Submit" style="border-color: #000000" name="submit">
+							
+                            </div>
+                        </form>
+                        <div class="clear"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </body>
+</html>
